@@ -1,0 +1,17 @@
+Package: detrendr
+Type: Package
+Title: Quantile Trend Filtering
+Version: 0.1.0
+Author: Halley Brantley, Eric Chi, Joe Guinness
+Maintainer: Halley Brantley <hlbrantl@ncsu.edu>
+Description: We implement a method for estimating baseline drift in
+    spikey and noisy univariate signals.
+License: MIT + file LICENSE
+Imports:
+    Rcpp (>= 0.12.06), tidyverse, Matrix
+Suggests:
+	testthat, lpSolve, Rglpk, gurobi, quadprog, kernlab
+LinkingTo: Rcpp, RcppArmadillo
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
