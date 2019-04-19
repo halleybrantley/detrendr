@@ -14,6 +14,7 @@
 #' @param use_gurobi TRUE if gurobi solver is installed and should be used
 #' @param eps_abs absolute threshold for stopping criteria
 #' @param eps_rel relative threshold for stopping criteria
+#' @param scale (TRUE/FALSE) scale response before estimating trend
 #' @examples
 #' require(Matrix)
 #' n <- 100
@@ -33,10 +34,16 @@ get_trend_windows <- function(y, tau, lambda, k, window_size,
                            overlap, max_iter, rho=1, update=10, 
                            use_gurobi = TRUE, 
                            eps_abs = .05, 
-                           eps_rel = 1e-3){
-  min_y <- min(y, na.rm=T)
-  max_y <- max(y, na.rm=T)
-  y <- 200*(y-min_y)/(max_y-min_y)
+                           eps_rel = 1e-3, 
+                           scale = TRUE){
+  if (scale){
+    min_y <- min(y, na.rm=T)
+    max_y <- max(y, na.rm=T)
+    y <- 200*(y-min_y)/(max_y-min_y)
+  } else {
+    min_y <- 0
+    max_y <- 1
+  }
   if (use_gurobi){
     solver <- "gurobi"
   } else {
