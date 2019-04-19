@@ -42,7 +42,7 @@ get_trend_windows <- function(y, tau, lambda, k, window_size,
     y <- 200*(y-min_y)/(max_y-min_y)
   } else {
     min_y <- 0
-    max_y <- 1
+    max_y <- 200
   }
   if (use_gurobi){
     solver <- "gurobi"
