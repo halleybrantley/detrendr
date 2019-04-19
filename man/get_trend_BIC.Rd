@@ -4,7 +4,7 @@
 \alias{get_trend_BIC}
 \title{Choose smoothing parameter using SIC}
 \usage{
-get_trend_BIC(y, tau, k, lambdaSeq = exp(seq(0, 1.5, length.out = 20)),
+get_trend_BIC(y, tau, k, lambdaSeq = exp(seq(0, 14, 1)),
   df_tol = 1e-09, gamma = 1, plot_lambda = FALSE, solver = NULL,
   criteria = "eBIC")
 }

@@ -5,8 +5,8 @@
 \title{Consensus ADMM for overlapping windows}
 \usage{
 get_trend_windows(y, tau, lambda, k, window_size, overlap, max_iter,
-  rho = 5, update = 10, use_gurobi = TRUE, eps_abs = 0.05,
-  eps_rel = 0.001)
+  rho = 1, update = 10, use_gurobi = TRUE, eps_abs = 0.05,
+  eps_rel = 0.001, scale = TRUE)
 }
 \arguments{
 \item{y}{observed data}
@@ -32,6 +32,8 @@ get_trend_windows(y, tau, lambda, k, window_size, overlap, max_iter,
 \item{eps_abs}{absolute threshold for stopping criteria}
 
 \item{eps_rel}{relative threshold for stopping criteria}
+
+\item{scale}{(TRUE/FALSE) scale response before estimating trend}
 }
 \description{
 \code{consensus ADMM} Uses ADMM to smooth overlapping windows
