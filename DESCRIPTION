@@ -8,9 +8,11 @@ Description: We implement a method for estimating baseline drift in
     spikey and noisy univariate signals.
 License: MIT + file LICENSE
 Imports:
-    Rcpp (>= 0.12.06), tidyverse, Matrix
+    Rcpp (>= 0.12.06), tidyverse
+Depends: 
+    Matrix
 Suggests:
-	testthat, lpSolve, Rglpk, gurobi, quadprog, kernlab
+    testthat, lpSolve, Rglpk, gurobi, quadprog, kernlab
 LinkingTo: Rcpp, RcppArmadillo
 Encoding: UTF-8
 LazyData: true
