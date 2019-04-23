@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "70%"
 )
 ```
 # detrendr
@@ -29,9 +29,8 @@ install_github("halleybrantley/detrendr")
 
 Estimate the 5th and 20th quantile trends using a fixed value of the smoothing parameter $\lambda$. 
 
-```{r example1, fig.width = 4}
-library(devtools)
-load_all()
+```{r example1}
+library(detrendr)
 n <- 100
 x <- seq(1, n, 1)
 y <- sin(x*2*pi/n) + rnorm(n, 0, .4)
@@ -44,9 +43,9 @@ lines(trend[,1]~x, col="red")
 lines(trend[,2]~x, col="blue")
 ```
 
-Use eBIC criterion to choose smoothing parameter
+Use eBIC criterion to choose smoothing parameter:
 
-```{r BIC, echo = FALSE, include = FALSE}
+```{r BIC}
 
 trend_fit <- get_trend_BIC(y, tau, k, plot_lambda = TRUE)
 trend <- trend_fit$trend

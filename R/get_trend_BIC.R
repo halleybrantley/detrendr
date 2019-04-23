@@ -73,7 +73,7 @@ get_trend_BIC <- function(y, tau, k,
                                validID, yValid)
     df[i,] <- model_crit$df
     BIC[i,] <- model_crit$BIC
-    print(sprintf("i=%d lambda=%f", i, lambdaSeq[i]))
+    # print(sprintf("i=%d lambda=%f", i, lambdaSeq[i]))
   }
   
   lambda <- lambdaSeq[apply(BIC, 2, which.min)]
