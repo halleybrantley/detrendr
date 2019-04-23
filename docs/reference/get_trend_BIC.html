@@ -160,14 +160,7 @@
 <span class='no'>lambdaSeq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(-<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>1</span>))
 <span class='no'>k</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>
 <span class='no'>tau</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>.2</span>)
-<span class='no'>trend</span> <span class='kw'>&lt;-</span> <span class='fu'>get_trend_BIC</span>(<span class='no'>y</span>, <span class='no'>tau</span>, <span class='no'>k</span>, <span class='no'>lambdaSeq</span>, <span class='kw'>plot_lambda</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Using same lambda for all quantiles</span></div><div class='output co'>#&gt; [1] "i=1 lambda=0.135335"
-#&gt; [1] "i=2 lambda=0.367879"
-#&gt; [1] "i=3 lambda=1.000000"
-#&gt; [1] "i=4 lambda=2.718282"
-#&gt; [1] "i=5 lambda=7.389056"
-#&gt; [1] "i=6 lambda=20.085537"
-#&gt; [1] "i=7 lambda=54.598150"
-#&gt; [1] "i=8 lambda=148.413159"</div><div class='img'><img src='get_trend_BIC-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>trend</span>$<span class='no'>theta</span>[,<span class='fl'>1</span>]~<span class='no'>x</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='img'><img src='get_trend_BIC-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>trend</span> <span class='kw'>&lt;-</span> <span class='fu'>get_trend_BIC</span>(<span class='no'>y</span>, <span class='no'>tau</span>, <span class='no'>k</span>, <span class='no'>lambdaSeq</span>, <span class='kw'>plot_lambda</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Using same lambda for all quantiles</span></div><div class='img'><img src='get_trend_BIC-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>trend</span>$<span class='no'>trend</span>[,<span class='fl'>1</span>]~<span class='no'>x</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='img'><img src='get_trend_BIC-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
