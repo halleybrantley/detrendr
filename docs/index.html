@@ -74,11 +74,11 @@
 <p>You can install the development version of detrendr from <a href="https://github.com/halleybrantley/detrendr">Github</a> with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"halleybrantley/detrendr"</span>)
-<span class="co">#&gt; Skipping install of 'detrendr' from a github remote, the SHA1 (c277bd60) has not changed since last install.</span>
+<span class="co">#&gt; Skipping install of 'detrendr' from a github remote, the SHA1 (f04757ad) has not changed since last install.</span>
 <span class="co">#&gt;   Use `force = TRUE` to force installation</span></code></pre></div>
-<div id="example" class="section level2">
+<div id="examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p>Estimate the 5th and 20th quantile trends using a fixed value of the smoothing parameter <span class="math inline">\(\lambda\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(detrendr)
 <span class="co">#&gt; Loading required package: Matrix</span>
@@ -104,6 +104,51 @@ trend_fit &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(trend[,<span class="dv">1</span>]<span class="op">~</span>x, <span class="dt">col=</span><span class="st">"red"</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(trend[,<span class="dv">2</span>]<span class="op">~</span>x, <span class="dt">col=</span><span class="st">"blue"</span>)</code></pre></div>
 <p><img src="reference/figures/README-BIC-2.png" width="70%"></p>
+<p>Use ADMM algorithm for long time series:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(splines)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">987651</span>)
+overlap &lt;-<span class="st"> </span><span class="dv">150</span> 
+window_size &lt;-<span class="st"> </span><span class="dv">500</span> 
+n &lt;-<span class="st"> </span>window_size<span class="op">*</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span>overlap<span class="op">*</span><span class="dv">2</span>
+df.data &lt;-<span class="st"> </span><span class="kw"><a href="reference/generate_peaks.html">generate_peaks</a></span>(n)
+df.data<span class="op">$</span>x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, n, <span class="dv">1</span>)
+tau &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>)
+
+lambda &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(df.data<span class="op">$</span>y)
+max_iter &lt;-<span class="st"> </span><span class="dv">25</span>
+trend1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_trend.html">get_trend</a></span>(df.data<span class="op">$</span>y, tau, lambda, <span class="dt">k=</span><span class="dv">3</span>)
+<span class="co">#&gt; Using same lambda for all quantiles</span>
+
+trend2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_trend_windows.html">get_trend_windows</a></span>(df.data<span class="op">$</span>y, tau, lambda, <span class="dt">k=</span><span class="dv">3</span>,
+                            window_size, 
+                            overlap, 
+                            <span class="dt">max_iter=</span><span class="dv">40</span>, <span class="dt">update =</span> <span class="dv">1</span>, 
+                            <span class="dt">rho =</span> <span class="dv">1</span>, <span class="dt">eps_abs =</span> <span class="fl">0.01</span>, 
+                            <span class="dt">scale=</span><span class="ot">FALSE</span>)
+<span class="co">#&gt; Using same lambda for all quantiles</span>
+<span class="co">#&gt; Using same lambda for all quantiles</span>
+<span class="co">#&gt; Using same lambda for all quantiles</span>
+<span class="co">#&gt; [1] "Iteration: 1 Primal Resid Norm: 0.9107 eps_pri: 0.5056, Dual Resid Norm: 0.9182  eps_dual 0.4912"</span>
+<span class="co">#&gt; [1] "Iteration: 2 Primal Resid Norm: 0.7083 eps_pri: 0.5056, Dual Resid Norm: 0.6741  eps_dual 0.4912"</span>
+<span class="co">#&gt; [1] "Iteration: 3 Primal Resid Norm: 0.6067 eps_pri: 0.5056, Dual Resid Norm: 0.5211  eps_dual 0.4912"</span>
+<span class="co">#&gt; [1] "Iteration: 4 Primal Resid Norm: 0.5085 eps_pri: 0.5056, Dual Resid Norm: 0.4339  eps_dual 0.4913"</span>
+<span class="co">#&gt; [1] "Iteration: 5 Primal Resid Norm: 0.4699 eps_pri: 0.5056, Dual Resid Norm: 0.3979  eps_dual 0.4914"</span>
+<span class="co">#&gt; [1] "Converged in 5 iterations"</span>
+
+
+df_no &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x=</span>df.data<span class="op">$</span>x , <span class="dt">method =</span> <span class="st">"Single Fit"</span>, trend1), 
+               <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x=</span>df.data<span class="op">$</span>x , <span class="dt">method =</span> <span class="st">"Windows"</span>, trend2))
+
+
+<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(df.data, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="dt">col=</span><span class="st">"grey"</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="dt">data =</span> df_no, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y=</span>X1, <span class="dt">col =</span> <span class="st">"0.05"</span>, <span class="dt">linetype =</span> method))<span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="dt">data =</span> df_no, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">y=</span>X2, <span class="dt">col =</span> <span class="st">"0.10"</span>, <span class="dt">linetype =</span> method))<span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_brewer">scale_color_brewer</a></span>(<span class="dt">palette =</span> <span class="st">"Set1"</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">col=</span><span class="st">"Quantile"</span>, <span class="dt">linetype =</span> <span class="st">""</span>, <span class="dt">x =</span> <span class="st">""</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_bw</a></span>() </code></pre></div>
+<p><img src="reference/figures/README-windows-1.png" width="70%"></p>
 </div>
 </div>
   </div>
