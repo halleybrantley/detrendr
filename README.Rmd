@@ -20,7 +20,7 @@ The goal of detrendr is to estimate smooth quantile trends in evenly spaced seri
 
 You can install the development version of detrendr from  [Github](https://github.com/halleybrantley/detrendr) with:
 
-``` r 
+``` {r load} 
 library(devtools)
 install_github("halleybrantley/detrendr")
 ```
