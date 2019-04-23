@@ -12,6 +12,8 @@ using namespace arma;
 //'
 //' @param n length of input
 //' @export
+//' @importFrom Matrix sparseMatrix
+//' 
 // [[Rcpp::export]]
 arma::sp_mat get_D1(int n){
   int numberNonZero = 2*(n-1);

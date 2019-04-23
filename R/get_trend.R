@@ -15,7 +15,8 @@
 #' k <- 3
 #' tau <- c(0.05, .2)
 #' trend <- get_trend(y, tau, lambda, k)
-#' plot(trend[,1]~x, type="l")
+#' plot(y~x, type = "l")
+#' lines(trend[,1]~x, col = "red")
 #' @export
 get_trend <- function(y, tau, lambda, k){
   mean_y <- mean(y, na.rm=T)

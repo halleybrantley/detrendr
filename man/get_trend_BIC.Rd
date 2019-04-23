@@ -40,5 +40,5 @@ lambdaSeq <- exp(seq(-2, 5, 1))
 k <- 3
 tau <- c(0.05, .2)
 trend <- get_trend_BIC(y, tau, k, lambdaSeq, plot_lambda = TRUE)
-plot(trend$theta[,1]~x, type="l")  
+plot(trend$trend[,1]~x, type="l")  
 }

@@ -20,17 +20,18 @@ The goal of detrendr is to estimate smooth quantile trends in evenly spaced seri
 
 You can install the development version of detrendr from  [Github](https://github.com/halleybrantley/detrendr) with:
 
-``` r
+``` r 
 library(devtools)
-install_github("halleybrantely/detrendr")
+install_github("halleybrantley/detrendr")
 ```
 
 ## Example
 
 Estimate the 5th and 20th quantile trends using a fixed value of the smoothing parameter $\lambda$. 
 
-```{r example1}
-library(detrendr)
+```{r example1, fig.width = 4}
+library(devtools)
+load_all()
 n <- 100
 x <- seq(1, n, 1)
 y <- sin(x*2*pi/n) + rnorm(n, 0, .4)
@@ -45,13 +46,13 @@ lines(trend[,2]~x, col="blue")
 
 Use eBIC criterion to choose smoothing parameter
 
-```{r pressure, echo = FALSE, include = FALSE}
+```{r BIC, echo = FALSE, include = FALSE}
 
 trend_fit <- get_trend_BIC(y, tau, k, plot_lambda = TRUE)
-# trend <- trend_fit$trend
-# plot(y~x, type="l", col="grey")
-# lines(trend[,1]~x, col="red")
-# lines(trend[,2]~x, col="blue")
+trend <- trend_fit$trend
+plot(y~x, type="l", col="grey")
+lines(trend[,1]~x, col="red")
+lines(trend[,2]~x, col="blue")
 ```
 
 

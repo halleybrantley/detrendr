@@ -7,6 +7,8 @@
 #'
 #' @param n length of input
 #' @export
+#' @importFrom Matrix sparseMatrix
+#' 
 get_D1 <- function(n) {
     .Call('_detrendr_get_D1', PACKAGE = 'detrendr', n)
 }
