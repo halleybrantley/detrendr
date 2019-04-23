@@ -12,15 +12,9 @@ You can install the development version of detrendr from [Github](https://github
 
 ``` r
 library(devtools)
-#install_github("halleybrantley/detrendr")
-load_all()
-#> Loading detrendr
-#> Loading required package: Matrix
-#> 
-#> Attaching package: 'testthat'
-#> The following objects are masked from 'package:devtools':
-#> 
-#>     setup, test_file
+install_github("halleybrantley/detrendr")
+#> Skipping install of 'detrendr' from a github remote, the SHA1 (f04757ad) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 Examples
@@ -30,6 +24,7 @@ Estimate the 5th and 20th quantile trends using a fixed value of the smoothing p
 
 ``` r
 library(detrendr)
+#> Loading required package: Matrix
 n <- 100
 x <- seq(1, n, 1)
 y <- sin(x*2*pi/n) + rnorm(n, 0, .4)
