@@ -160,8 +160,8 @@ get_trend_windows <- function(y, tau, lambda, k, window_size,
     iter <- iter+1
   }
   y[is.na(y)] <- 0
-  theta <- ((y - get_phiBar(phiBar_list, windows))/200)*(max_y-min_y) + min_y
-  return(theta)
+  trend <- ((y - get_phiBar(phiBar_list, windows))/200)*(max_y-min_y) + min_y
+  return(trend)
 }
 
 list_diff_norm <- function(list1, list2) {

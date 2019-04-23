@@ -90,7 +90,7 @@ get_trend_BIC <- function(y, tau, k,
   model$obj <- get_objective(tau, lambda, n, m, missInd)
   theta <- solve_model(model, solver=solver, y=y)
 
-  return(list(theta = theta,
+  return(list(trend = theta,
               lambda = lambda, 
               BIC = BIC, 
               df = df))

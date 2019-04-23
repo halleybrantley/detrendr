@@ -8,7 +8,6 @@
 #' @param k order of differencing
 #' @importFrom utils installed.packages
 #' @examples 
-#' require(Matrix)
 #' n <- 100
 #' x <- seq(1, n, 1)
 #' y <- sin(x*2*pi/n) + rnorm(n, 0, .4)
@@ -31,7 +30,7 @@ get_trend <- function(y, tau, lambda, k){
   } else {
     solver <- "lpSove"
   }
-  theta <- solve_model(model, solver, y)
-  return(theta/200*sd_y + mean_y)
+  trend <- solve_model(model, solver, y)
+  return(trend/200*sd_y + mean_y)
 }
 
