@@ -26,7 +26,7 @@ library(devtools)
 load_all()
 ```
 
-## Example
+## Examples
 
 Estimate the 5th and 20th quantile trends using a fixed value of the smoothing parameter $\lambda$. 
 

@@ -23,8 +23,8 @@ load_all()
 #>     setup, test_file
 ```
 
-Example
--------
+Examples
+--------
 
 Estimate the 5th and 20th quantile trends using a fixed value of the smoothing parameter *λ*.
 

@@ -2,6 +2,7 @@
 
 export(checkloss)
 export(chol_solve)
+export(generate_peaks)
 export(get_D1)
 export(get_Dk)
 export(get_constraint_mat)
