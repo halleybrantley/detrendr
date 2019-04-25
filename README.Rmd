@@ -24,6 +24,7 @@ You can install the development version of detrendr from  [Github](https://githu
 library(devtools)
 install_github("halleybrantley/detrendr")
 ```
+The \r{detrendr} functions are much faster when used with the Gurobi solver. Directions for obtaining a license and installing the gurobi package are available here: https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation.html
 
 ## Examples
 
@@ -60,8 +61,8 @@ Use ADMM algorithm for long time series:
 library(ggplot2)
 library(splines)
 set.seed(987651)
-overlap <- 150 
-window_size <- 500 
+overlap <- 50 
+window_size <- 100 
 n <- window_size*3 - overlap*2
 df.data <- generate_peaks(n)
 df.data$x <- seq(1, n, 1)
@@ -73,8 +74,10 @@ trend1 <- get_trend(df.data$y, tau, lambda, k=3)
 
 trend2 <- get_trend_windows(df.data$y, tau, lambda, k=3,
                             window_size, 
+                            use_gurobi = TRUE, # Change to FALSE if you do
+                            # not have gurobi installed
                             overlap, 
-                            max_iter=40, update = 1, 
+                            max_iter=max_iter, update = 1, 
                             rho = 1, eps_abs = 0.01, 
                             scale=FALSE)
 

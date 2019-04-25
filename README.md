@@ -13,9 +13,11 @@ You can install the development version of detrendr from [Github](https://github
 ``` r
 library(devtools)
 install_github("halleybrantley/detrendr")
-#> Skipping install of 'detrendr' from a github remote, the SHA1 (f04757ad) has not changed since last install.
+#> Skipping install of 'detrendr' from a github remote, the SHA1 (90d3f20a) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
+
+The functions are much faster when used with the Gurobi solver. Directions for obtaining a license and installing the gurobi package are available here: <https://cran.r-project.org/web/packages/prioritizr/vignettes/gurobi_installation.html>
 
 Examples
 --------
@@ -65,8 +67,8 @@ Use ADMM algorithm for long time series:
 library(ggplot2)
 library(splines)
 set.seed(987651)
-overlap <- 150 
-window_size <- 500 
+overlap <- 50 
+window_size <- 100 
 n <- window_size*3 - overlap*2
 df.data <- generate_peaks(n)
 df.data$x <- seq(1, n, 1)
@@ -79,19 +81,40 @@ trend1 <- get_trend(df.data$y, tau, lambda, k=3)
 
 trend2 <- get_trend_windows(df.data$y, tau, lambda, k=3,
                             window_size, 
+                            use_gurobi = TRUE, # Change to FALSE if you do
+                            # not have gurobi installed
                             overlap, 
-                            max_iter=40, update = 1, 
+                            max_iter=max_iter, update = 1, 
                             rho = 1, eps_abs = 0.01, 
                             scale=FALSE)
 #> Using same lambda for all quantiles
 #> Using same lambda for all quantiles
 #> Using same lambda for all quantiles
-#> [1] "Iteration: 1 Primal Resid Norm: 0.9107 eps_pri: 0.5056, Dual Resid Norm: 0.9182  eps_dual 0.4912"
-#> [1] "Iteration: 2 Primal Resid Norm: 0.7083 eps_pri: 0.5056, Dual Resid Norm: 0.6741  eps_dual 0.4912"
-#> [1] "Iteration: 3 Primal Resid Norm: 0.6067 eps_pri: 0.5056, Dual Resid Norm: 0.5211  eps_dual 0.4912"
-#> [1] "Iteration: 4 Primal Resid Norm: 0.5085 eps_pri: 0.5056, Dual Resid Norm: 0.4339  eps_dual 0.4913"
-#> [1] "Iteration: 5 Primal Resid Norm: 0.4699 eps_pri: 0.5056, Dual Resid Norm: 0.3979  eps_dual 0.4914"
-#> [1] "Converged in 5 iterations"
+#> [1] "Iteration: 1 Primal Resid Norm: 0.9016 eps_pri: 0.2066, Dual Resid Norm: 0.9299  eps_dual 0.2013"
+#> [1] "Iteration: 2 Primal Resid Norm: 0.7210 eps_pri: 0.2065, Dual Resid Norm: 0.6984  eps_dual 0.2014"
+#> [1] "Iteration: 3 Primal Resid Norm: 0.6679 eps_pri: 0.2064, Dual Resid Norm: 0.5735  eps_dual 0.2015"
+#> [1] "Iteration: 4 Primal Resid Norm: 0.5604 eps_pri: 0.2064, Dual Resid Norm: 0.5313  eps_dual 0.2015"
+#> [1] "Iteration: 5 Primal Resid Norm: 0.4890 eps_pri: 0.2063, Dual Resid Norm: 0.5031  eps_dual 0.2016"
+#> [1] "Iteration: 6 Primal Resid Norm: 0.4050 eps_pri: 0.2063, Dual Resid Norm: 0.4837  eps_dual 0.2017"
+#> [1] "Iteration: 7 Primal Resid Norm: 0.3698 eps_pri: 0.2063, Dual Resid Norm: 0.4246  eps_dual 0.2017"
+#> [1] "Iteration: 8 Primal Resid Norm: 0.3254 eps_pri: 0.2063, Dual Resid Norm: 0.4178  eps_dual 0.2018"
+#> [1] "Iteration: 9 Primal Resid Norm: 0.3195 eps_pri: 0.2063, Dual Resid Norm: 0.4059  eps_dual 0.2018"
+#> [1] "Iteration: 10 Primal Resid Norm: 0.3284 eps_pri: 0.2062, Dual Resid Norm: 0.3397  eps_dual 0.2018"
+#> [1] "Iteration: 11 Primal Resid Norm: 0.3432 eps_pri: 0.2062, Dual Resid Norm: 0.2828  eps_dual 0.2018"
+#> [1] "Iteration: 12 Primal Resid Norm: 0.3442 eps_pri: 0.2062, Dual Resid Norm: 0.2355  eps_dual 0.2019"
+#> [1] "Iteration: 13 Primal Resid Norm: 0.3402 eps_pri: 0.2062, Dual Resid Norm: 0.1845  eps_dual 0.2019"
+#> [1] "Iteration: 14 Primal Resid Norm: 0.3206 eps_pri: 0.2062, Dual Resid Norm: 0.1916  eps_dual 0.2020"
+#> [1] "Iteration: 15 Primal Resid Norm: 0.3060 eps_pri: 0.2062, Dual Resid Norm: 0.1999  eps_dual 0.2020"
+#> [1] "Iteration: 16 Primal Resid Norm: 0.3009 eps_pri: 0.2062, Dual Resid Norm: 0.2019  eps_dual 0.2021"
+#> [1] "Iteration: 17 Primal Resid Norm: 0.3039 eps_pri: 0.2062, Dual Resid Norm: 0.1852  eps_dual 0.2021"
+#> [1] "Iteration: 18 Primal Resid Norm: 0.3035 eps_pri: 0.2062, Dual Resid Norm: 0.1660  eps_dual 0.2022"
+#> [1] "Iteration: 19 Primal Resid Norm: 0.2954 eps_pri: 0.2062, Dual Resid Norm: 0.1722  eps_dual 0.2023"
+#> [1] "Iteration: 20 Primal Resid Norm: 0.2882 eps_pri: 0.2062, Dual Resid Norm: 0.1734  eps_dual 0.2023"
+#> [1] "Iteration: 21 Primal Resid Norm: 0.2833 eps_pri: 0.2062, Dual Resid Norm: 0.1726  eps_dual 0.2024"
+#> [1] "Iteration: 22 Primal Resid Norm: 0.2800 eps_pri: 0.2062, Dual Resid Norm: 0.1716  eps_dual 0.2024"
+#> [1] "Iteration: 23 Primal Resid Norm: 0.2681 eps_pri: 0.2062, Dual Resid Norm: 0.1781  eps_dual 0.2025"
+#> [1] "Iteration: 24 Primal Resid Norm: 0.2652 eps_pri: 0.2062, Dual Resid Norm: 0.1537  eps_dual 0.2025"
+#> [1] "Iteration: 25 Primal Resid Norm: 0.2612 eps_pri: 0.2062, Dual Resid Norm: 0.1449  eps_dual 0.2026"
 
 
 df_no <- rbind(data.frame(x=df.data$x , method = "Single Fit", trend1), 
