@@ -29,7 +29,7 @@ get_trend <- function(y, tau, lambda, k){
   } else if ("Rglpk" %in% pkgs){
     solver <- "Rglpk"
   } else {
-    solver <- "lpSove"
+    solver <- "lpSolve"
   }
   trend <- solve_model(model, solver, y)
   return(trend/200*sd_y + mean_y)
