@@ -43,7 +43,7 @@ get_trend_BIC <- function(y, tau, k,
     } else if ("Rglpk" %in% pkgs){
       solver <- "Rglpk"
     } else {
-      solver <- "lpSove"
+      solver <- "lpSolve"
     }
   }
   
