@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # detrendr
 
-The goal of detrendr is to estimate smooth quantile trends in evenly spaced series. Missing values are allowed. 
+The goal of detrendr is to estimate smooth quantile trends in evenly spaced series. Missing values are allowed. The methods implemented in this package are described here: https://arxiv.org/abs/1904.10582.
 
 # Installation
 

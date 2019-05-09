@@ -3,7 +3,7 @@
 detrendr
 ========
 
-The goal of detrendr is to estimate smooth quantile trends in evenly spaced series. Missing values are allowed.
+The goal of detrendr is to estimate smooth quantile trends in evenly spaced series. Missing values are allowed. The methods implemented in this package are described here: <https://arxiv.org/abs/1904.10582>.
 
 Installation
 ============
@@ -13,7 +13,7 @@ You can install the development version of detrendr from [Github](https://github
 ``` r
 library(devtools)
 install_github("halleybrantley/detrendr")
-#> Skipping install of 'detrendr' from a github remote, the SHA1 (90d3f20a) has not changed since last install.
+#> Skipping install of 'detrendr' from a github remote, the SHA1 (f4852fc9) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 
